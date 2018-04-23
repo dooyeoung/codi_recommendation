@@ -76,7 +76,7 @@
 
 ### 2-4. Color Recommendation
 
-- **Overall method**
+##### 2-4-1. **Overall method**
 
 ![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Recommend_color.png)
 
@@ -87,17 +87,13 @@
 
 
 
-
-- **MLP Model**
+##### 2-4-2. **MLP Model**
 
 ![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/MLP_model.png)
 
 
 
-
-
-
-- **Colormind API**
+##### 2-4-3.**Colormind API**
 
 The most predict-color is gray, so we use colormind API for variety of colors.
 
