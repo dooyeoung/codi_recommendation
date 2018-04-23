@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>패캠-데사스7B</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style media="screen">
+        .container {
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+         
+
+        .center {
+			text-align: center;
+	    }
+
+	    .center > div, .center {
+			font-size: 0;
+			line-height: 1;
+		}
+
+		.center > div {
+			display: inline-block;
+		}
+
+    </style>
+</head>
+<body> 
+
+<div class="center">
+	<div>
+	    <div style="font-size: 14px; margin-top: 27px; margin-bottom: 22px">selected color: 
+			<b style="font-family: 'Courier New', monospace; " id="selectedHex">#1e88e5</b>
+	    </div> 
+	    <md-color-picker 
+		    id="picker" 
+		    value="#1e88e5" 
+		    palette="material-full" 
+		    color-margin="3"
+		    colors-per-row="6" 
+		    color-size="30"></md-color-picker>
+
+		<button type="button" class="btn btn-primary" id="btn_color">Color</button>
+	</div>  
+</div> 
+
+<div class='container'> 
+	<div class="row" id='codi_list'></div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="static/js/md-color-picker.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){ 
+
+		$('#picker').on('change', function(){
+			var color = event.detail[0] 
+			$('#picker').val(color)
+			$('#selectedHex').text(color)  
+		}); // end of picker
+
+
+		$('#btn_color').on('click', function(){
+			var color = $('#picker').val()
+			
+			var request = {
+                color:color
+            };
+
+            $.post('/color/', request).done(function(data){
+            	if(data.status == 201){
+            		console.log('errror')
+            	}
+            	else{ 
+					$('#codi_list').empty(); 
+
+            	 
+					for(var i=0; i<data.codis.length; i++){ 
+                        var codi_data = data.codis[i]  
+                        var rgb_data = data.rgbs[i]
+                        var tag_data = data.tags[i]
+
+                        
+ 
+                        var rgb_tag =''; 
+                        for(var j=0; j<rgb_data.length; j++){ 
+                        	percenatge = rgb_data[j][1]* 100;
+                        	rgbhex = rgb_data[j][2];
+
+                        	rgb_tag += 
+                        	'<div class="progress-bar progress-bar-success" style="width: '+percenatge+'%; background-color: '+rgbhex+';">'+
+                        	'<div class="skill-div"></div></div>'; 
+                        }
+
+                        var tag_tag ='';
+                        for(var j=0; j<tag_data.length; j++){ 
+                        	text = tag_data[j][1];
+                        	tag_tag += '#'+text+" " ;
+                        }
+
+
+                    	var tag = 
+                    	'<div class="col-sm-6 col-md-4"><div class="thumbnail"><img src="'+
+						codi_data.img +
+						'" data-holder-rendered="true" style="height: 200px; display: block;"><div class="caption"><h3 id="thumbnail-label">' +
+						codi_data.id_codi +
+						'</h3><p><div class="progress progress-adjust">'+
+						rgb_tag + 
+						'</div></p></div></div></div>'
+ 
+						$('#codi_list').append(tag);
+                	}
+                	
+            	} 
+            })
+		}); // end of codi 
+
+
+
+
+ 
+    });
+
+     
+</script>
+</body>
+
+</html>
