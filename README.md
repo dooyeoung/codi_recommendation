@@ -10,7 +10,7 @@
 
 
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/abstract.png)
+![webpage text](https://github.com/wjy5446/codi_recommendation/blob/master/image/webpage.png)
 
 
 
@@ -48,7 +48,7 @@
 
 ### 2-1. Color Extraction
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/extract_color.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/extract_color.png)
 
 
 
@@ -58,19 +58,19 @@
 
 - **Scatter**
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/EDA.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/EDA.png)
 
 
 
 - **Clustering (DBSCAN)**
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/clustering.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/clustering.png)
 
 
 
 ### 2-3. Quality Evaluation (QDA)
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/Quality_Evaluation.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Quality_Evaluation.png)
 
 
 
@@ -78,7 +78,7 @@
 
 - **Overall method**
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/Recommend_color.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Recommend_color.png)
 
 - Recommended color 1 : The nearest color with predict color using colormind API
 - Recommended color 2 : predict color
@@ -90,7 +90,7 @@
 
 - **MLP Model**
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/MLP_model.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/MLP_model.png)
 
 
 
@@ -101,10 +101,10 @@
 
 The most predict-color is gray, so we use colormind API for variety of colors.
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/Colormind_API.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Colormind_API.png)
 
 
 
 ### 2-5. Fashion Recommendation (KNN)
 
-![alt text](https://github.com/wjy5446/Real-time-video-stitching/blob/master/image/Recommend_fashion.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Recommend_fashion.png)
