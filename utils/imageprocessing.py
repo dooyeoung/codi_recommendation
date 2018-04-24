@@ -55,7 +55,7 @@ def extract_background_mask(image, debug = False):
 
 def extract_color(image, k = 3, debug = False):
     # make background mask
-    mask = extract_background_mask(image)
+    mask = extract_background_mask(image, debug)
 
     # 색상 클러스터링
     flat_image = image.reshape(image.shape[0] * image.shape[1], 3)
