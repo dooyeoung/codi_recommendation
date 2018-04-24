@@ -10,7 +10,7 @@
 
 
 
-![webpage text](https://github.com/wjy5446/codi_recommendation/blob/master/image/webpage.png)
+![webpage text](https://github.com/wjy5446/codi_recommendation/blob/master/image/website.png)
 
 
 
