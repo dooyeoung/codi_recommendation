@@ -114,6 +114,11 @@ def recommand():
     results = recommand_color(color0, color1)
 
     print(results)
+    for rcolor in results:
+        rcolor = hex_to_rgb(rcolor)
+        gb = qda_goodbad(color0, color1, rcolor)
+        #print(round(gb * 100, 2))
+
     color_json = json.loads(json.dumps(results))
 
     if request.method == 'POST':

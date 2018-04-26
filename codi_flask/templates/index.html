@@ -3,12 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>패캠-데사스7B</title>
+    <title>recommend Codination</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
+ 
  	<link rel="stylesheet" href="static/css/preloader.css"/>
  
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/starrr.css">
+
+
     <style media="screen">
         .container {
             margin-top: 40px;
@@ -20,13 +23,13 @@
 		    margin-bottom: 0px; 
 		} 
 		.progress {
-		    min-height:30px;
-		}
-		.p2{
-			min-height:10px;
-		}
+		    min-height:20px;
+		} 
  
-		[id^=palette]:hover, #towpalette {
+		[id^=palette], #towpalette {
+			min-height:30px;
+		}
+		[id^=palette]:hover, #towpalette:hover {
 			cursor:pointer;
 		}
     </style>
@@ -35,15 +38,14 @@
  
 <div class="container"> 
 	<div class="page-header">
-	<h1> Recomand Codination <small>,&nbsp;color palette </small></h1>
+	<h1> recommend Codination <small></small></h1>
 	</div>
 
 	<table class='table' >
-		<tr height="260px">
+		<tr height="230px">
 		<td style="width: 33%;text-align:center; ">
 			<div style="display: inline-block;">
-			<div style="font-size: 14px; margin-top: 27px; margin-bottom: 22px">selected color: 
-				<b style="font-family: 'Courier New', monospace; " id="selectedHex">#1e88e5</b>
+			<div style="font-size: 14px; margin-top: 27px; margin-bottom: 22px"> 
 		    </div> 
 		    <md-color-picker 
 			    id="picker" 
@@ -55,6 +57,11 @@
 			</div>
 		</td>
 		<td style="width:33%; vertical-align: middle; text-align: center;">
+			
+			<button type="button" class="btn btn-default" style="width:110px;border-color: #333333" id='btn_first'>set first</button>
+			<button type="button" class="btn btn-default" style="width:110px;border-color: #bbbbbb" id='btn_second'>set second</button> 
+
+			</p>
 			<div class="progress progress-adjust" id='towpalette'>
 				<div class="progress-bar progress-bar-success" id='color0' style="width: 50%; background-color: #000000">
 				<div class="skill-div" id='color_rgb0'>#000000</div>   
@@ -64,7 +71,7 @@
 				</div> 
 			</div> 
 			<p></p>
-			<button type="button" class="btn btn-default" id="btn_getrect"> Recommand</button>
+			<button type="button" class="btn btn-default" id="btn_getrect" style="border-color: #bbbbbb"> Recommand</button>
 			 
  
 
@@ -112,6 +119,25 @@
 				<div class='row' id='codi_list'></div>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="3">
+				<div style="font-size: 12px; margin-top: 27px; margin-bottom: 22px">
+				<b style="font-family: 'Courier New', monospace; " id="selectedHex">made by <br>
+
+				<a href='https://github.com/wjy5446' target='blank'>https://github.com/wjy5446</a> - jae young yoon<br>
+
+				<a href='https://github.com/dooyeoung' target='balnk'>https://github.com/dooyeoung</a> - doo yeoung ryu<br><br>
+
+				data from <br> 
+				<a href='http://www.mapssi.com' target='balnk'>
+				http://www.mapssi.com</a> <br> 
+				<a href='http://colormind.io/' target='balnk'>
+				http://colormind.io</a>
+				
+				</b>
+		    	</div>
+			</td>
+		</tr>
 	</table>   
 </div> 
  
@@ -128,10 +154,50 @@
 <script src="static/js/md-color-picker.js"></script>  
  
 <script src="static/js/jquery.preloader.min.js"></script>
+<script src="static/js/starrr.js"></script>
+
+
 <script type="text/javascript">
 
+
     $(document).ready(function(){   
-    	
+
+    	init();
+		function init(){
+			console.log('init');
+			var color1 = '#000000'
+			$('#color0').css('background-color', color1);
+			$('#color_rgb0').text(color1.toUpperCase());
+			$('#color_rgb0').css('color', invertColor(color1));
+
+			var color2 = '#00BCD4'
+			$('#color1').css('background-color', color2);
+			$('#color_rgb1').text(color2.toUpperCase());
+			$('#color_rgb1').css('color', invertColor(color2));
+
+
+			var colors = ['#F2CD88', '#EDEAEB', '#F6E159']
+			for(var i=0; i<colors.length; i++){ 
+				var color = colors[i];
+				$('#rcolor'+i + '0').css('background-color', color1);
+				$('#rcolor_rgb'+i+'0').text(color1.toUpperCase());
+				$('#rcolor_rgb'+i+'0').css('color', invertColor(color1));
+
+				$('#rcolor'+i + '1').css('background-color', color2);
+				$('#rcolor_rgb'+i+'1').text(color2.toUpperCase());  
+				$('#rcolor_rgb'+i+'1').css('color', invertColor(color2));
+
+				$('#rcolor'+i + '2').css('background-color', color);
+				$('#rcolor_rgb'+i+'2').text(color.toUpperCase());
+				$('#rcolor_rgb'+i+'2').css('color', invertColor(color));
+			}
+
+			get_codi(color1, color2, '#F2CD88', 1);
+		}
+
+		
+
+		// 로딩창 띄우기    	
     	var obj = {};
 		var someBlock = $('#picker'); 
 	    function start_loading(){ 
@@ -142,37 +208,44 @@
 	            duration: 200,
 	        }); 
 	    }
+
+	    // 로딩창 끄기
 	    function stop_loading(){  
 	    	someBlock.preloader('remove');  
 	    }
 
 
+	    // 색상 변경시
     	var current_idx = 0;
+	    $('#btn_first').on('click', function(){
+	    	current_idx = 0;
+	    	$('#btn_first').css('border-color','#333333');
+	    	$('#btn_second').css('border-color','#bbbbbb');
+	    });
+
+	    $('#btn_second').on('click', function(){
+	    	current_idx = 1;
+	    	$('#btn_first').css('border-color','#bbbbbb');
+	    	$('#btn_second').css('border-color','#333333');
+	    });
+	    
+
 		$('#picker').on('change', function(){
 			var color = event.detail[0] 
-			$('#picker').val(color);
-			$('#selectedHex').text(color);
-			  
-
- 			// 0, 1 번갈아 가면서 컬러 설정하기위함
-			if(current_idx==2){
-				current_idx=0; 
-			} 
+			$('#picker').val(color); 
+			   
 
 			// 색상 세팅
 			$('#color'+current_idx).css('background-color', color);
 			$('#color_rgb'+current_idx).text(color.toUpperCase());
-
-			// 컬러 모두 선택된 경우 추천해준다.
-			if(current_idx==1){
-				 
-			} 
-			current_idx++;
+			$('#color_rgb'+current_idx).css('color', invertColor(color));
+ 
 
 			// 1개 클릭
-			get_codi(color, '#ffffff', '#ffffff', 1);
+			get_codi(color, '#ffffff', '#ffffff', 1); 
 		}); // end of picker
 
+		// 색상 추천받기
 		$('#btn_getrect').on('click', function(){
 			var color0 = $('#color_rgb0').text();
 			var color1 = $('#color_rgb1').text();
@@ -181,10 +254,10 @@
                 color0:color0,
                 color1:color1,
             };
-				
-				start_loading();
-			$.post('/recommand/', request).done(function(data){
-				console.log(data);
+			
+			// 로딩창 켜기	
+			start_loading();
+			$.post('/recommand/', request).done(function(data){ 
 				for(var i=0; i<data.result.length; i++){ 
 					r_color = data.result[i];
 
@@ -196,7 +269,12 @@
 					$('#rcolor_rgb'+i+'1').text(color1.toUpperCase()); 
 					$('#rcolor_rgb'+i+'2').text(r_color.toUpperCase());
 
+
+					$('#rcolor_rgb'+i+'0').css('color', invertColor(color0));
+					$('#rcolor_rgb'+i+'1').css('color', invertColor(color1)); 
+					$('#rcolor_rgb'+i+'2').css('color', invertColor(r_color));
 				}
+				// 로딩창 끄기
 		 		stop_loading();
 			}); 
 		})
@@ -207,9 +285,10 @@
 			c2 = $('#color_rgb1').text();  
   			c3 = '#000000';
 
-			get_codi(c1, c2, c3, 2);
+			get_codi(c1, c2, c3, 2); 
 		});
 
+ 
 		// 3개 클릭
 		$('[id^=palette]').on('click', function(e){
 
@@ -225,10 +304,10 @@
 			c2 = $('#rcolor_rgb'+i + '1').text(); 
 			c3 = $('#rcolor_rgb'+i + '2').text(); 
    
-			get_codi(c1, c2, c3, 3); 
+			get_codi(c1, c2, c3, 3);  
 		});
 
-
+		// 코디 목록 가져오기
 		function get_codi(c1, c2, c3, cnt){ 
 			 
 			var request = {
@@ -244,6 +323,7 @@
             	}
             	else{ 
 
+            		var ratings = new Array();
 					$('#codi_list').empty();  
             		for(var i=0; i<data.result.length; i++){ 
             			row = data.result[i];
@@ -255,6 +335,7 @@
  
             			gb = gb.toFixed(2)
 
+            			// 색상 입히기
             			var rgb_tag =''; 
                         for(var j=0; j<ratio.length; j++){ 
                         	percenatge = ratio[j] * 100;
@@ -266,22 +347,87 @@
                         }
 
                         
+                        var gb_tag = '';
+                        if (cnt == 3){
+
+                        	start_rat = Math.round(gb/20, 2);
+                        	ratings.push(start_rat);
+							gb_tag = 
+							'<h5 id="thumbnail-label">'+ 
+							'</h5>'+
+							'<div class="starrr" id="star'+i+'"></div>';
+						}
 
             			var tag = 
                     	'<div class="col-sm-4 col-md-4"><div class="thumbnail" style="text-align:center;"><img src="'+
 						img+
-						'" data-holder-rendered="true" style="height: 200px;"><div class="caption"><h3 id="thumbnail-label">' +
-						gb +
-						'</h3></p><div class="progress progress-adjust">'+
+						'" data-holder-rendered="true" style="height: 200px;"><div class="caption">'+
+ 						gb_tag +
+						'</p><div class="progress progress-adjust">'+
 						rgb_tag + 
-						'</div></p></p></div></div></div>';
+						'</div></p>'+ 
+						'</div></div></div>';
  
  
 						$('#codi_list').append(tag);
             		}
+
+            		if(cnt == 3){
+
+            			set_start(data.result.length, ratings);
+            		}
             	}
             });
-		} 
+		} // end of 
+
+		function set_start(cnt, ratings){ 
+
+			console.log(ratings.length);
+			for(var i=0; i<cnt; i++){ 
+				$('#star'+i).starrr({
+			      max: 5,
+			      rating: ratings[i], 
+			    });
+			}
+		}
+
+		function padZero(str, len) {
+		    len = len || 2;
+		    var zeros = new Array(len).join('0');
+		    return (zeros + str).slice(-len);
+		}
+
+		function invertColor(hex, bw) { 
+		    if (hex.indexOf('#') === 0) {
+		        hex = hex.slice(1);
+		    }
+		    // convert 3-digit hex to 6-digits.
+		    if (hex.length === 3) {
+		        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		    }
+		    if (hex.length !== 6) {
+		        throw new Error('Invalid HEX color.');
+		    }
+		    var r = parseInt(hex.slice(0, 2), 16),
+		        g = parseInt(hex.slice(2, 4), 16),
+		        b = parseInt(hex.slice(4, 6), 16);
+
+		    var bw=true;
+		    if (bw) {
+		        // http://stackoverflow.com/a/3943023/112731
+		        return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+		            ? '#000000'
+		            : '#FFFFFF';
+		    }
+		    // invert color components
+		    r = (255 - r).toString(16);
+		    g = (255 - g).toString(16);
+		    b = (255 - b).toString(16);
+		    // pad each with zeros and return
+ 
+		    return "#" + padZero(r) + padZero(g) + padZero(b);
+		}
+
     });
 
      
