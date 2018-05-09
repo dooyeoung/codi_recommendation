@@ -340,6 +340,8 @@ class AlchemyEncoder(json.JSONEncoder):
 
         return json.JSONEncoder.default(self, obj)
 
+
+    
 # sql 클래스 정의
 Base = declarative_base()
 class Codis(Base):
@@ -467,6 +469,7 @@ class MapItem(Base):
         return "<mapitem {}, {}, {}>".format(self.id, self.id_codi, self.id_item)
     
  
-
+if __name__ == "__main__":
+    app.run()
 
 # $ gunicorn --reload dss:app
