@@ -4,7 +4,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, REAL
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import DeclarativeMeta
-
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 import numpy as np
 import pandas as pd
@@ -15,21 +14,19 @@ import urllib
 import pickle
 
 
-
+# html파일 자동 갱신
 app = Flask(__name__)
 app.config.update(
     TEMPLATES_AUTO_RELOAD = True,
 )
 
-
-models = {}
+ 
 def init():
-    # with open("./models/classification.plk","rb") as f:
-    # models["classification"] = pickle.load(f) 
-
+    # 패스워드 불러오기
     with open('./model/pw.pw', 'rb') as f:
         pw = pickle.load(f) # 단 한줄씩 읽어옴
     
+    # db 접속
     db = MySQLdb.connect(
         "127.0.0.1",
         "root",
@@ -37,71 +34,18 @@ def init():
         "codi",
         charset='utf8',
     )  
-    engine = sqlalchemy.create_engine("mysql+mysqldb://root:"+pw+"@127.0.0.1/codi")
 
+    # 색상 정보 불러오기
     codis_info = pd.read_csv('static/data/codis_info.csv')
-    return engine, db, codis_info
-
-
-engine, db, codis_info = init() 
-Session = sessionmaker(bind=engine)
-session = Session()
+    return db, codis_info
  
+db, codis_info = init() 
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
  
-
-#api
-@app.route("/color/", methods=["POST"])
-def color():
-    results = session.query(Colors).all() 
-
-    cinput = hex_to_rgb(request.values.get("color"))
-    if request.method == 'POST':
-        # json으로 변경하여 데이터 넣기 
-
-        rgb_ls = []
-        hex_ls = []
-        for color in results:
-            rgb_ls.append(np.array(hex_to_rgb(color.color)))
-            hex_ls.append(color.color)
-
-        rgb_ls = np.vstack(rgb_ls) 
- 
-        # 유클리디안 거리 구하기
-        uc = np.sqrt(np.sum((rgb_ls - cinput)**2, axis=1))  
-        datacom = pd.DataFrame([uc, hex_ls]).T 
-        datacom = datacom.sort_values(0) 
-
-        sdata = tuple(datacom[:5][1].values)
-  
-
-        codis = get_codi_by_colors(str(sdata))
-
-        # codis = session.query(Codis) \
-        # .join(MapColor, MapColor.id_codi == Codis.id_codi) \
-        # .join(Colors, MapColor.id_color == Colors.id) \
-        # .filter(Colors.color.in_(sdata)).all()
-
-        tags=[]
-        rgbs=[]
-        for codi in codis:  
-            rgbs.append(list(set(get_codi_color(codi[0])))) 
-            tags.append(list(set(get_codi_tag(codi[0]))))
-
-        codis = json.loads(json.dumps(codis, cls=AlchemyEncoder)) 
-        rgbs = json.loads(json.dumps(rgbs, cls=AlchemyEncoder)) 
-        tags = json.loads(json.dumps(tags, cls=AlchemyEncoder)) 
-
-
-        result = {"status":200, "codis":codis, "rgbs":rgbs, "tags":tags}
-    else:
-        result = {"status":201}
- 
-    return jsonify(result)
-
 
 @app.route("/recommand/", methods=["POST"])
 def recommand():
@@ -136,7 +80,7 @@ def codi():
     c3 = hex_to_rgb(request.values.get('color3')) 
     cnt = request.values.get('cnt')
 
-    codis = get_similarity(c1, c2, c3, cnt).values[:20] 
+    codis = get_similarity(c1, c2, c3, cnt).values[:21] 
 
     codis = codis_info[codis_info['name'].isin(codis)]
 
@@ -173,6 +117,7 @@ def hex_to_rgb(h):
     h = h.lstrip('#')
     return tuple(int(h[i:i+2], 16) for i in (0, 2 ,4))
 
+# rgb 2 hex
 def get_hex(color):
     return '#%02x%02x%02x' % ( int(color[0]), int(color[1]), int(color[2]))
 
@@ -202,6 +147,7 @@ def get_codi_tag(id_codi):
     rows = curs.fetchall()
     return rows
 
+# 코디검색
 def get_codi_by_id(id_codi):
     
     SQL_QUERY = """
@@ -219,7 +165,7 @@ def get_codi_by_id(id_codi):
 def get_codi_by_colors(colors):
       
     SQL_QUERY = """
-        select codis.id_codi, colors.color, codis.img
+        SELECT codis.id_codi, colors.color, codis.img
         from mapping_codi_color
         join codis on codis.id_codi = mapping_codi_color.id_codi
         join colors on colors.id = mapping_codi_color.id_color
@@ -231,6 +177,7 @@ def get_codi_by_colors(colors):
     rows = curs.fetchall()
     return rows
 
+# colormind, nn모델사용한 컬러 추천
 def recommand_color(color1, color2):
     '''
     recommand 3 colors
@@ -269,10 +216,9 @@ def recommand_color(color1, color2):
     c2 = get_hex(color_3_pre.astype(int))
     c3 = get_hex(li_color_3_colormind[li_idx[1]])
     
-     
     return c1, c2, c3
 
-
+# 색상이 무난한지 튀는지 검사
 def qda_goodbad(color1, color2, color3):
     '''
     Predict Good/Bad codis using qda
@@ -296,10 +242,8 @@ def qda_goodbad(color1, color2, color3):
     return prob_good[1]
 
 
-
+# 유사도 높은 코디 검색
 def get_similarity(c1, c2, c3, cnt):
-
- 
     if cnt == '1':
         cs = c1
         rc1 = codis_info.filter(['color1_R', 'color1_G', 'color1_B']).values
@@ -340,134 +284,6 @@ class AlchemyEncoder(json.JSONEncoder):
 
         return json.JSONEncoder.default(self, obj)
 
-
-    
-# sql 클래스 정의
-Base = declarative_base()
-class Codis(Base):
-    __tablename__ = 'codis'
-
-    id = Column(Integer, primary_key=True)
-    rank = Column(Integer)
-    id_codi = Column(Integer)
-    img = Column(String)
-    link = Column(String)
-    tag = Column(String)
-    
-    def __init__(self, id, rank, id_codi, img, link, tag):
-        self.id = id
-        self.rank = rank
-        self.id_codi = id_codi
-        self.img = img
-        self.link = link
-        self.tag = tag
-    
-    def __repr__(self):
-        return "<Codi {}, {}, {}, {}, {}>".format(self.id, self.rank, self.id_codi, self.img, self.link, self.tag)
-    
-    
-class Colors(Base):
-    __tablename__ = 'colors'
-
-    id = Column(Integer, primary_key=True) 
-    color = Column(String) 
-    
-    def __init__(self, id, color):
-        self.id = id
-        self.color = color 
-    
-    def __repr__(self):
-        return "<Color {}, {}>".format(self.id, self.color)
-    
-
-class Tags(Base):
-    __tablename__ = 'tags'
-    
-    id = Column(Integer, primary_key=True)
-    tag = Column(String)
-    
-    def __init__(self, id, tag):
-        self.id = id
-        self.tag = tag
-    
-    def __repr__(self):
-        return "<Tag {}, {}>".format(self.id, self.tag)
-    
-    
-class Items(Base):
-    __tablename__ = 'items'
-
-    id = Column(Integer, primary_key=True) 
-    id_item = Column(Integer) 
-    id_codi = Column(Integer)
-    name = Column(String)
-    brand = Column(String)
-    price = Column(Integer)
-    img = Column(String)
-    
-    def __init__(self, id, id_item, id_codi, name, brand, price, img):
-        self.id = id
-        self.id_item = id_item
-        self.id_codi = id_codi
-        self.name = name
-        self.brand = brand
-        self.price = price
-        self.img = img
-    
-    def __repr__(self):
-        return "<item {}, {}, {}, {}, {}, {}, {}>".format(self.id, self.id_item, self.id_codi, self.name, self.brand, self.price, self.img)
-    
-    
-    
-class MapColor(Base):
-    __tablename__ = 'mapping_codi_color'
-    
-    id = Column(Integer, primary_key=True)
-    id_codi = Column(Integer)
-    ratio = Column(REAL)
-    id_color = Column(Integer)
-    
-    def __init__(id, id_coid, ratio, id_color):
-        self.id = id
-        self.id_codi = id_coid
-        self.ratio = ratio
-        self.id_color = id_color
-        
-    def __repr__(self):
-        return "<mapColor {}, {}, {}, {}>".format(self.id, self.id_codi, self.ratio, self.id_color)
-    
-    
-class MapTag(Base):
-    __tablename__ = 'mapping_codi_tag'
-    
-    id = Column(Integer, primary_key=True)
-    id_codi = Column(Integer) 
-    id_tag = Column(Integer)
-    
-    def __init__(id, id_coid, id_tag):
-        self.id = id
-        self.id_codi = id_coid 
-        self.id_tag = id_tag
-        
-    def __repr__(self):
-        return "<maptag {}, {}, {}>".format(self.id, self.id_codi, self.id_tag)
-    
-    
-class MapItem(Base):
-    __tablename__ = 'mapping_codi_item'
-    
-    id = Column(Integer, primary_key=True)
-    id_codi = Column(Integer) 
-    id_item = Column(Integer)
-    
-    def __init__(id, id_coid, id_item):
-        self.id = id
-        self.id_codi = id_coid 
-        self.id_item = id_item
-        
-    def __repr__(self):
-        return "<mapitem {}, {}, {}>".format(self.id, self.id_codi, self.id_item)
-    
  
 if __name__ == "__main__":
     app.run()

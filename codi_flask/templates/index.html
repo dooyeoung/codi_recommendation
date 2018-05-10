@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>recommend Codination</title>
+    <title>Recommend Coordination</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  
  	<link rel="stylesheet" href="static/css/preloader.css"/>
@@ -38,7 +38,7 @@
  
 <div class="container"> 
 	<div class="page-header">
-	<h1> recommend Codination <small></small></h1>
+	<h1> Recommend Coordination <small></small></h1>
 	</div>
 
 	<table class='table' >
@@ -234,13 +234,11 @@
 			var color = event.detail[0] 
 			$('#picker').val(color); 
 			   
-
 			// 색상 세팅
 			$('#color'+current_idx).css('background-color', color);
 			$('#color_rgb'+current_idx).text(color.toUpperCase());
 			$('#color_rgb'+current_idx).css('color', invertColor(color));
  
-
 			// 1개 클릭
 			get_codi(color, '#ffffff', '#ffffff', 1); 
 		}); // end of picker
