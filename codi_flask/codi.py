@@ -23,9 +23,13 @@ app.config.update(
  
 def init():
     # 패스워드 불러오기
-    with open('./model/pw.pw', 'rb') as f:
+    with open('model/pw.pw', 'rb') as f:
         pw = pickle.load(f) # 단 한줄씩 읽어옴
     
+    # load model
+    with open("model/qda_goodbad.p", "rb") as f:
+        qda = pickle.load(f)
+
     # db 접속
     db = MySQLdb.connect(
         "127.0.0.1",
@@ -34,12 +38,12 @@ def init():
         "codi",
         charset='utf8',
     )  
-
+    model_NN = load_model("model/model_nn.hdf5")
     # 색상 정보 불러오기
     codis_info = pd.read_csv('static/data/codis_info.csv')
-    return db, codis_info
+    return db, codis_info, model_NN, qda
  
-db, codis_info = init() 
+db, codis_info, model_NN, qda = init() 
 
 
 @app.route("/")
@@ -189,16 +193,13 @@ def recommand_color(color1, color2):
     '''
     input_color = np.hstack([color1, color2]).reshape(1,6)
 
-    li_color_3_recom = []
     # predict color values using dnn
-    model = load_model("model/model1_dnn_normal.hdf5")
-    color_3_pre = model.predict(input_color/256)[0]
+
+    color_3_pre = model_NN.predict(input_color/256)[0]
     
     # get color values using colormind 
     request_color = [color1, color2, "N"]
-    data = {
-    'model' : "default",
-    'input' : request_color}
+    data = {'model' : "default",'input' : request_color}
 
     li_similar = []
     li_color_3_colormind = []
@@ -226,9 +227,7 @@ def qda_goodbad(color1, color2, color3):
     output : good probabilities
     '''
     
-    # load model
-    with open("model/qda_goodbad.p", "rb") as f:
-        qda = pickle.load(f)
+    
     
     # change color
     color1 = np.array(color1)
