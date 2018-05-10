@@ -6,7 +6,7 @@
 > - Evaluate the quality of color-combination using QDA.
 > - Recommend the fashion by similarity of the input color-combination.
 
-**Web-site address** [link](http://www.mdpi.com/2073-8994/10/1/4) 
+**Web-site address** [link](http://dooyeoung.ml) 
 
 
 
