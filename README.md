@@ -1,20 +1,15 @@
 # Fashion-Coordination Recommendation
 
 **Project Site** [http://dooyeoung.ml](http://dooyeoung.ml/)
+![webpage text](image/1.site.png)
 
+---
 
 > This is a web-site that recommend the fashion-coordination using MLP and QDA.
 >
 > - Recommand color-combination using MLP and Colormind API.
 > - Evaluate the quality of color-combination using QDA.
 > - Recommend the fashion by similarity of the input color-combination.
-
-**Web-site address** [link](http://www.mdpi.com/2073-8994/10/1/4) 
-
-
-
-![webpage text](image/1.site.png)
-
 
 
 ## 1. Code
