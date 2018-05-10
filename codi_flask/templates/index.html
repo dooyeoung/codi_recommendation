@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <title>recommend Codination</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- 
+
  	<link rel="stylesheet" href="static/css/preloader.css"/>
- 
+
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="static/css/starrr.css">
 
@@ -16,16 +16,16 @@
         .container {
             margin-top: 40px;
             margin-bottom: 50px;
-        } 
+        }
 
         .progress-adjust {
 		    height: 10px;
-		    margin-bottom: 0px; 
-		} 
+		    margin-bottom: 0px;
+		}
 		.progress {
 		    min-height:20px;
-		} 
- 
+		}
+
 		[id^=palette], #towpalette {
 			min-height:30px;
 		}
@@ -34,9 +34,9 @@
 		}
     </style>
 </head>
-<body> 
- 
-<div class="container"> 
+<body>
+
+<div class="container">
 	<div class="page-header">
 	<h1> recommend Codination <small></small></h1>
 	</div>
@@ -45,71 +45,71 @@
 		<tr height="230px">
 		<td style="width: 33%;text-align:center; ">
 			<div style="display: inline-block;">
-			<div style="font-size: 14px; margin-top: 27px; margin-bottom: 22px"> 
-		    </div> 
-		    <md-color-picker 
-			    id="picker" 
-			    value="#1e88e5" 
-			    palette="material-full" 
+			<div style="font-size: 14px; margin-top: 27px; margin-bottom: 22px">
+		    </div>
+		    <md-color-picker
+			    id="picker"
+			    value="#1e88e5"
+			    palette="material-full"
 			    color-margin="3"
-			    colors-per-row="6" 
+			    colors-per-row="6"
 			    color-size="30"></md-color-picker>
 			</div>
 		</td>
 		<td style="width:33%; vertical-align: middle; text-align: center;">
-			
+
 			<button type="button" class="btn btn-default" style="width:110px;border-color: #333333" id='btn_first'>set first</button>
-			<button type="button" class="btn btn-default" style="width:110px;border-color: #bbbbbb" id='btn_second'>set second</button> 
+			<button type="button" class="btn btn-default" style="width:110px;border-color: #bbbbbb" id='btn_second'>set second</button>
 
 			</p>
 			<div class="progress progress-adjust" id='towpalette'>
 				<div class="progress-bar progress-bar-success" id='color0' style="width: 50%; background-color: #000000">
-				<div class="skill-div" id='color_rgb0'>#000000</div>   
+				<div class="skill-div" id='color_rgb0'>#000000</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='color1' style="width: 50%;background-color: #00BCD4">
-				<div class="skill-div" id='color_rgb1'>#00BCD4</div>  
-				</div> 
-			</div> 
+				<div class="skill-div" id='color_rgb1'>#00BCD4</div>
+				</div>
+			</div>
 			<p></p>
 			<button type="button" class="btn btn-default" id="btn_getrect" style="border-color: #bbbbbb"> Recommand</button>
-			 
- 
+
+
 
 		</td>
 		<td style="width:33%; vertical-align: middle;">
 			<div class="progress progress-adjust" id='palette0'>
 				<div class="progress-bar progress-bar-success" id='rcolor00' style="width: 33.3%;background-color: #000000">
-				<div class="skill-div" id='rcolor_rgb00'>#000000</div>   
+				<div class="skill-div" id='rcolor_rgb00'>#000000</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor01' style="width: 33.3%;background-color: #00BCD4">
-				<div class="skill-div" id='rcolor_rgb01'>#00BCD4</div>  
+				<div class="skill-div" id='rcolor_rgb01'>#00BCD4</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor02' style="width: 33.3%; background-color: #F2CD88 ">
-				<div class="skill-div" id='rcolor_rgb02'>#F2CD88</div>  
+				<div class="skill-div" id='rcolor_rgb02'>#F2CD88</div>
 				</div>
 			</div>
 			<br>
 			<div class="progress progress-adjust" id='palette1'>
 				<div class="progress-bar progress-bar-success" id='rcolor10' style="width: 33.3%;background-color: #000000">
-				<div class="skill-div" id='rcolor_rgb10'>#000000</div>   
+				<div class="skill-div" id='rcolor_rgb10'>#000000</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor11' style="width: 33.3%;background-color: #00BCD4">
-				<div class="skill-div" id='rcolor_rgb11'>#00BCD4</div>  
+				<div class="skill-div" id='rcolor_rgb11'>#00BCD4</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor12' style="width: 33.3%;background-color: #EDEAEB">
-				<div class="skill-div" id='rcolor_rgb12'>#EDEAEB</div>  
+				<div class="skill-div" id='rcolor_rgb12'>#EDEAEB</div>
 				</div>
 			</div>
 			<br>
 			<div class="progress progress-adjust" id='palette2'>
 				<div class="progress-bar progress-bar-success" id='rcolor20' style="width: 33.3%;background-color: #000000">
-				<div class="skill-div" id='rcolor_rgb20'>#000000</div>   
+				<div class="skill-div" id='rcolor_rgb20'>#000000</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor21' style="width: 33.3%;background-color: #00BCD4">
-				<div class="skill-div" id='rcolor_rgb21'>#00BCD4</div>  
+				<div class="skill-div" id='rcolor_rgb21'>#00BCD4</div>
 				</div>
 				<div class="progress-bar progress-bar-warning" id='rcolor22' style="width: 33.3%; background-color: #F6E159">
-				<div class="skill-div" id='rcolor_rgb22'>#F6E159</div>  
+				<div class="skill-div" id='rcolor_rgb22'>#F6E159</div>
 				</div>
 			</div>
 		</td>
@@ -128,20 +128,20 @@
 
 				<a href='https://github.com/dooyeoung' target='balnk'>https://github.com/dooyeoung</a> - doo yeoung ryu<br><br>
 
-				data from <br> 
+				data from <br>
 				<a href='http://www.mapssi.com' target='balnk'>
-				http://www.mapssi.com</a> <br> 
+				http://www.mapssi.com</a> <br>
 				<a href='http://colormind.io/' target='balnk'>
 				http://colormind.io</a>
-				
+
 				</b>
 		    	</div>
 			</td>
 		</tr>
-	</table>   
-</div> 
- 
-  
+	</table>
+</div>
+
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -151,8 +151,8 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="static/js/md-color-picker.js"></script>  
- 
+<script src="static/js/md-color-picker.js"></script>
+
 <script src="static/js/jquery.preloader.min.js"></script>
 <script src="static/js/starrr.js"></script>
 
@@ -160,7 +160,7 @@
 <script type="text/javascript">
 
 
-    $(document).ready(function(){   
+    $(document).ready(function(){
 
     	init();
 		function init(){
@@ -177,14 +177,14 @@
 
 
 			var colors = ['#F2CD88', '#EDEAEB', '#F6E159']
-			for(var i=0; i<colors.length; i++){ 
+			for(var i=0; i<colors.length; i++){
 				var color = colors[i];
 				$('#rcolor'+i + '0').css('background-color', color1);
 				$('#rcolor_rgb'+i+'0').text(color1.toUpperCase());
 				$('#rcolor_rgb'+i+'0').css('color', invertColor(color1));
 
 				$('#rcolor'+i + '1').css('background-color', color2);
-				$('#rcolor_rgb'+i+'1').text(color2.toUpperCase());  
+				$('#rcolor_rgb'+i+'1').text(color2.toUpperCase());
 				$('#rcolor_rgb'+i+'1').css('color', invertColor(color2));
 
 				$('#rcolor'+i + '2').css('background-color', color);
@@ -195,23 +195,23 @@
 			get_codi(color1, color2, '#F2CD88', 1);
 		}
 
-		
 
-		// 로딩창 띄우기    	
+
+		// 로딩창 띄우기
     	var obj = {};
-		var someBlock = $('#picker'); 
-	    function start_loading(){ 
+		var someBlock = $('#picker');
+	    function start_loading(){
 
 	    	someBlock.preloader({
 	            text: obj.textVal,
 	            percent: obj.percentVal,
 	            duration: 200,
-	        }); 
+	        });
 	    }
 
 	    // 로딩창 끄기
-	    function stop_loading(){  
-	    	someBlock.preloader('remove');  
+	    function stop_loading(){
+	    	someBlock.preloader('remove');
 	    }
 
 
@@ -228,88 +228,88 @@
 	    	$('#btn_first').css('border-color','#bbbbbb');
 	    	$('#btn_second').css('border-color','#333333');
 	    });
-	    
+
 
 		$('#picker').on('change', function(){
-			var color = event.detail[0] 
-			$('#picker').val(color); 
-			   
+			var color = event.detail[0]
+			$('#picker').val(color);
+
 
 			// 색상 세팅
 			$('#color'+current_idx).css('background-color', color);
 			$('#color_rgb'+current_idx).text(color.toUpperCase());
 			$('#color_rgb'+current_idx).css('color', invertColor(color));
- 
+
 
 			// 1개 클릭
-			get_codi(color, '#ffffff', '#ffffff', 1); 
+			get_codi(color, '#ffffff', '#ffffff', 1);
 		}); // end of picker
 
 		// 색상 추천받기
 		$('#btn_getrect').on('click', function(){
 			var color0 = $('#color_rgb0').text();
 			var color1 = $('#color_rgb1').text();
-			
+
 			var request = {
                 color0:color0,
                 color1:color1,
             };
-			
-			// 로딩창 켜기	
+
+			// 로딩창 켜기
 			start_loading();
-			$.post('/recommand/', request).done(function(data){ 
-				for(var i=0; i<data.result.length; i++){ 
+			$.post('/recommand/', request).done(function(data){
+				for(var i=0; i<data.result.length; i++){
 					r_color = data.result[i];
 
 					$('#rcolor'+i + '0').css('background-color', color0);
-					$('#rcolor'+i + '1').css('background-color', color1); 
+					$('#rcolor'+i + '1').css('background-color', color1);
 					$('#rcolor'+i + '2').css('background-color', r_color);
 
 					$('#rcolor_rgb'+i+'0').text(color0.toUpperCase());
-					$('#rcolor_rgb'+i+'1').text(color1.toUpperCase()); 
+					$('#rcolor_rgb'+i+'1').text(color1.toUpperCase());
 					$('#rcolor_rgb'+i+'2').text(r_color.toUpperCase());
 
 
 					$('#rcolor_rgb'+i+'0').css('color', invertColor(color0));
-					$('#rcolor_rgb'+i+'1').css('color', invertColor(color1)); 
+					$('#rcolor_rgb'+i+'1').css('color', invertColor(color1));
 					$('#rcolor_rgb'+i+'2').css('color', invertColor(r_color));
 				}
 				// 로딩창 끄기
 		 		stop_loading();
-			}); 
+			});
 		})
 
 		// 2개 클릭
 		$('#towpalette').on('click', function(){
 			c1 = $('#color_rgb0').text();
-			c2 = $('#color_rgb1').text();  
+			c2 = $('#color_rgb1').text();
   			c3 = '#000000';
 
-			get_codi(c1, c2, c3, 2); 
+			get_codi(c1, c2, c3, 2);
 		});
 
- 
+
 		// 3개 클릭
 		$('[id^=palette]').on('click', function(e){
 
-			var pallette = $(this).attr('id'); 
+			var pallette = $(this).attr('id');
 			var i = pallette.substr(pallette.length - 1); // => "1"
-			
+
 			c1=$('#rcolor'+i + '0').css('background-color');
-			c2=$('#rcolor'+i + '1').css('background-color'); 
+			c2=$('#rcolor'+i + '1').css('background-color');
 			c3=$('#rcolor'+i + '2').css('background-color');
-  
+
 
 			c1 = $('#rcolor_rgb'+i + '0').text();
-			c2 = $('#rcolor_rgb'+i + '1').text(); 
-			c3 = $('#rcolor_rgb'+i + '2').text(); 
-   
-			get_codi(c1, c2, c3, 3);  
+			c2 = $('#rcolor_rgb'+i + '1').text();
+			c3 = $('#rcolor_rgb'+i + '2').text();
+
+			get_codi(c1, c2, c3, 3);
 		});
 
 		// 코디 목록 가져오기
-		function get_codi(c1, c2, c3, cnt){ 
-			 
+		function get_codi(c1, c2, c3, cnt){
+
 			var request = {
                 color1:c1,
                 color2:c2,
@@ -321,54 +321,54 @@
             	if(data.status == 201){
             		console.log('errror');
             	}
-            	else{ 
+            	else{
 
             		var ratings = new Array();
-					$('#codi_list').empty();  
-            		for(var i=0; i<data.result.length; i++){ 
+					$('#codi_list').empty();
+            		for(var i=0; i<data.result.length; i++){
             			row = data.result[i];
             			id_codi = row[0];
             			img = row[1];
             			gb = row[2]*100;
             			ratio = row[3];
-            			rgb_data = row[4]; 
- 
+            			rgb_data = row[4];
+
             			gb = gb.toFixed(2)
 
             			// 색상 입히기
-            			var rgb_tag =''; 
-                        for(var j=0; j<ratio.length; j++){ 
+            			var rgb_tag ='';
+                        for(var j=0; j<ratio.length; j++){
                         	percenatge = ratio[j] * 100;
                         	rgbhex = rgb_data[j];
 
-                        	rgb_tag += 
+                        	rgb_tag +=
                         	'<div class="progress-bar progress-bar-success" style="width: '+percenatge+'%; background-color: '+rgbhex+';">'+
-                        	'<div class="skill-div"></div></div>'; 
+                        	'<div class="skill-div"></div></div>';
                         }
 
-                        
+
                         var gb_tag = '';
                         if (cnt == 3){
 
                         	start_rat = Math.round(gb/20, 2);
                         	ratings.push(start_rat);
-							gb_tag = 
-							'<h5 id="thumbnail-label">'+ 
+							gb_tag =
+							'<h5 id="thumbnail-label">'+
 							'</h5>'+
 							'<div class="starrr" id="star'+i+'"></div>';
 						}
 
-            			var tag = 
+            			var tag =
                     	'<div class="col-sm-4 col-md-4"><div class="thumbnail" style="text-align:center;"><img src="'+
 						img+
 						'" data-holder-rendered="true" style="height: 200px;"><div class="caption">'+
  						gb_tag +
 						'</p><div class="progress progress-adjust">'+
-						rgb_tag + 
-						'</div></p>'+ 
+						rgb_tag +
+						'</div></p>'+
 						'</div></div></div>';
- 
- 
+
+
 						$('#codi_list').append(tag);
             		}
 
@@ -378,15 +378,15 @@
             		}
             	}
             });
-		} // end of 
+		} // end of
 
-		function set_start(cnt, ratings){ 
+		function set_start(cnt, ratings){
 
 			console.log(ratings.length);
-			for(var i=0; i<cnt; i++){ 
+			for(var i=0; i<cnt; i++){
 				$('#star'+i).starrr({
 			      max: 5,
-			      rating: ratings[i], 
+			      rating: ratings[i],
 			    });
 			}
 		}
@@ -397,7 +397,7 @@
 		    return (zeros + str).slice(-len);
 		}
 
-		function invertColor(hex, bw) { 
+		function invertColor(hex, bw) {
 		    if (hex.indexOf('#') === 0) {
 		        hex = hex.slice(1);
 		    }
@@ -424,13 +424,13 @@
 		    g = (255 - g).toString(16);
 		    b = (255 - b).toString(16);
 		    // pad each with zeros and return
- 
+
 		    return "#" + padZero(r) + padZero(g) + padZero(b);
 		}
 
     });
 
-     
+
 </script>
 </body>
 
