@@ -1,15 +1,17 @@
 # Fashion-Coordination Recommendation
 
-**Project Site** [http://dooyeoung.ml](http://dooyeoung.ml/)
-![webpage text](image/1.site.png)
-
----
-
 > This is a web-site that recommend the fashion-coordination using MLP and QDA.
 >
 > - Recommand color-combination using MLP and Colormind API.
 > - Evaluate the quality of color-combination using QDA.
 > - Recommend the fashion by similarity of the input color-combination.
+
+**Web-site address** [link](http://dooyeoung.ml) 
+
+
+
+![webpage text](https://github.com/wjy5446/codi_recommendation/blob/master/image/website.png)
+
 
 
 ## 1. Code
@@ -46,7 +48,9 @@
 
 ### 2-1. Color Extraction
 
-![alt text](image/2.extract.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/extract_color.png)
+
+
 
 
 
@@ -54,21 +58,19 @@
 
 - **Scatter**
 
-![alt text](image/3.colorscatter.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/EDA.png)
 
 
 
 - **Clustering (DBSCAN)**
 
-![alt text](image/4.cluster.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/clustering.png)
 
 
 
 ### 2-3. Quality Evaluation (QDA)
-- Generate mannered datas in random
-- QDA Modeling for predict normal/mannered
 
-![alt text](image/5.qda.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Quality_Evaluation.png)
 
 
 
@@ -76,7 +78,7 @@
 
 ##### 2-4-1. **Overall method**
 
-![alt text](image/6.recc.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Recommend_color.png)
 
 - Recommended color 1 : The nearest color with predict color using colormind API
 - Recommended color 2 : predict color
@@ -87,7 +89,7 @@
 
 ##### 2-4-2. **MLP Model**
 
-![alt text](image/7.mlp.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/MLP_model.png)
 
 
 
@@ -95,10 +97,10 @@
 
 The most predict-color is gray, so we use colormind API for variety of colors.
 
-![alt text](image/8.capi.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Colormind_API.png)
 
 
 
 ### 2-5. Fashion Recommendation (KNN)
 
-![alt text](image/9.knn.png)
+![alt text](https://github.com/wjy5446/codi_recommendation/blob/master/image/Recommend_fashion.png)
